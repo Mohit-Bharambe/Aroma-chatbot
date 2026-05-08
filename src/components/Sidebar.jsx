@@ -62,7 +62,7 @@ export function Sidebar() {
           </button>
         </div>
 
-        <button className="new-chat-btn" onClick={createNewChat} id="new-chat-btn">
+        <button className="new-chat-btn" onClick={() => { createNewChat(); if (window.innerWidth <= 768) setSidebarOpen(false); }} id="new-chat-btn">
           <Plus size={18} />
           <span>New Chat</span>
         </button>
@@ -72,7 +72,7 @@ export function Sidebar() {
             <div key={dateLabel} className="chat-group">
               <div className="chat-group-label">{dateLabel}</div>
               {dateChats.map(chat => (
-                <div key={chat.id} className={`chat-item ${chat.id === activeChatId ? 'chat-item-active' : ''}`} onClick={() => handleSelectChat(chat)}>
+                <div key={chat.id} className={`chat-item ${chat.id === activeChatId ? 'chat-item-active' : ''}`} onClick={() => { handleSelectChat(chat); if (window.innerWidth <= 768) setSidebarOpen(false); }}>
                   {editingId === chat.id ? (
                     <input
                       className="chat-rename-input"
@@ -112,6 +112,8 @@ export function Sidebar() {
           </button>
         </div>
       </div>
+
+      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)} />}
 
 
     </>
